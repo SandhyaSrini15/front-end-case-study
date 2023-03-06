@@ -1,8 +1,7 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
-function Dropdown({ dropdownList, parentName, onClickFn, count=1 }) {
-    const [totalCount, setCount] = useState(count)
+function Dropdown({ dropdownList, parentName, onClickFn }) {
 
   return (
     dropdownList.length > 0 && (
@@ -18,9 +17,7 @@ function Dropdown({ dropdownList, parentName, onClickFn, count=1 }) {
                   <Dropdown
                     dropdownList={el.children}
                     parentName={el.label}
-                    onClickFn={onClickFn}
-                    count={totalCount}
-                  />
+                    onClickFn={onClickFn}                  />
                 )}
               </div>
             );

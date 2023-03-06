@@ -19,8 +19,8 @@ export default async function Home() {
     <main className={`${styles.main} flex-row justify-between`}>
       <h1 className='py-2'>Welcome to my website!</h1>
       <Suspense fallback={<h1>Loading...</h1>}>
-        {/* <Navbar data = {getData}/> */}
-      <Navigation treeData={getData}/>
+        <Navbar data = {getData}/>
+      {/* <Navigation treeData={getData}/> */}
       </Suspense>
 
     </main>

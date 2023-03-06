@@ -11,8 +11,9 @@ function Navbar({ data }) {
   const [count, setCount] = useState(0);
 
   function handleClick(e) {
-    getChildDOMNode(e, expand);
     setExpand(!expand);
+    getChildDOMNode(e, expand);
+    
   }
 
   function increaseCount() {
