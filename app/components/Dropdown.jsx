@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 
 function Dropdown({ dropdownList, parentName, onClickFn, count=1 }) {
     const [totalCount, setCount] = useState(count)
-    console.log(count)
 
   return (
     dropdownList.length > 0 && (

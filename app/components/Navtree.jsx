@@ -1,25 +1,34 @@
-'use client'
+"use client";
 import React, { useState } from "react";
+import Link from "next/link";
+import { findElement } from "@/lib/util";
 
 function Navtree({ treeData, parent }) {
-    const [expand, setExpand]= useState(true)
-    function findElement(e)
-    {
-        setExpand(!expand)
-        let nameOfElement = e.target.innerText.toString()
-        let element = Array.from(document.getElementsByClassName(nameOfElement))
-        element[0].classList !== undefined && element[0].classList.length > 0 && !expand ? element.map((el) => el.classList.add('hidden')) :element.map((el) => el.classList.remove('hidden'))
+  const [expand, setExpand] = useState(true);
 
-    }
+  function getElement(e) {
+    setExpand(!expand);
+    findElement(e, expand);
+  }
+
   return (
     <div>
       {treeData.map((element) => {
+        let link = element.children.length > 0 ? "#" : `/Link/${element.label}`;
         return (
-          <div key={element.id} >
-            <span className={`${parent} ${parent ? 'hidden' : 'block'} ${parent && 'pl-10'}`} onClick={findElement}>{element.label}</span>
+          <div key={element.id}>
+            <Link
+              href={link}
+              className={`${parent} ${parent ? "hidden" : "block"} ${
+                parent && "pl-10"
+              }`}
+              onClick={getElement}
+            >
+              {element.label}
+            </Link>
             {element.children && element.children.length > 0 && (
-                <span className='px-0'>
-              <Navtree treeData={element.children} parent={element.label}/>
+              <span className="px-0">
+                <Navtree treeData={element.children} parent={element.label} />
               </span>
             )}
           </div>
