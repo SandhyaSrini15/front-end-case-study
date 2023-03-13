@@ -1,14 +1,38 @@
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 
 function Dropdown({ dropdownList, parentName, onClickFn }) {
+  const [list, setList] = useState(dropdownList)
+  const dragItem = useRef();
+  const dragOverItem = useRef();
+
+  function dragStart(e, position) {
+    dragItem.current = position
+    console.log(e.target.innerHTML)
+}
+
+function dragEnter(e, position) {
+    dragOverItem.current = position
+    console.log(e.target.innerHTML)
+}
+
+function drop (e) {
+    const copyItems = [...list]
+    const dragItemContent = copyItems[dragItem.current]
+    copyItems.splice(dragItem.current, 1)
+    copyItems.splice(dragOverItem.current, 0 , dragItemContent)
+    dragItem.current = null
+    dragOverItem.current = null
+    setList(copyItems)
+}
+
   return (
     dropdownList.length > 0 && (
       <div className={`px-10 border-blue-700 border-1px hidden ${parentName}`}>
         <ul>
-          {dropdownList.map((el) => {
+          {list.map((el, index) => {
             return (
-              <div key={el.id}>
+              <div key={el.id} onDragStart={(e) => dragStart(e, index)} onDragEnter={(e) => dragEnter(e, index)} onDragEnd={drop} draggable>
                 <Link
                   href={el.children.length > 0 ? "#" : `/Link/${el.label}`}
                   onClick={onClickFn}
